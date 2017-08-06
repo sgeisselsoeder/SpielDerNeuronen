@@ -1,6 +1,8 @@
 #include <vector>
 #include <cmath>
 #include "SpatialVector.h"
+#include <stdlib.h>     /* srand, rand */
+
 
 
 SpatialVector::SpatialVector() : m_coordinates(m_numDimensions, 0.0) {}
@@ -109,6 +111,14 @@ void SpatialVector::rescale (double coef) {
 	
 }
 
+void SpatialVector::randomize () {
+	
+	for(unsigned i = 0; i < m_numDimensions; i++) {
+		m_coordinates[i] = rand();
+	}
+	
+}
+
 double distance(const SpatialVector& a, const SpatialVector& b) {
     double sum = 0.0;
     
@@ -138,3 +148,4 @@ double angle(const SpatialVector& a, const SpatialVector& b) {
     
     
 }
+

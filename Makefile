@@ -24,4 +24,4 @@ bin/Berry.o: src/Berry.cpp src/Thing.cpp
 	g++ $(CXXFLAGS) -c -o bin/Berry.o src/Berry.cpp
 
 clean:
-	rm bin/*.o
+	rm bin/*.o bin/GodOfIntelSheep

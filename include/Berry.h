@@ -6,7 +6,7 @@
 class Berry : public Thing {
 	
 public:
-	double giveUpHealth(const Thing* healthSucker);
+	double transferHealth(const Thing* healthSucker);
 	Berry(const SpatialVector& pos, const SpatialVector& vel);
 	
 	

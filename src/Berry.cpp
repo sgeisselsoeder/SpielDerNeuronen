@@ -1,6 +1,6 @@
 #include "Berry.h"
 
-double Berry::giveUpHealth(const Thing* healthSucker) {
+double Berry::transferHealth(const Thing* healthSucker) {
 	
 	double health = m_health;
 	m_health = 0.0;

@@ -62,7 +62,7 @@ std::string Thing::getClassID() const {
 	return classID;
 }
 
-double Thing::giveUpHealth(const Thing* healthSucker) {
+double Thing::transferHealth(const Thing* healthSucker) {
 	
 	return 0.0;		// ANA: a plain thing cannot be eaten
 	

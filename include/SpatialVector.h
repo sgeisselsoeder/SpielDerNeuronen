@@ -42,6 +42,8 @@ public:
     
     void setCoordinates(double x, double y = 0.0, double z = 0.0);
     
+    void randomize();
+    
     // TODO: implement [] operator
 	// TODO implement ofstream<< operator
 
@@ -49,5 +51,6 @@ public:
 
 double distance(const SpatialVector& a, const SpatialVector& b);
 double angle(const SpatialVector& a, const SpatialVector& b);
+
 
 #endif

@@ -10,9 +10,15 @@ IntelSheep::IntelSheep(const SpatialVector& pos, const SpatialVector& vel) : Thi
 	m_perceptionRange		= 50.0;
 	m_healthConsumption		= 0.1;
 	m_health				= 100.0;
+	m_healthOld				= 100.0;
 	
 	classID					= "IntelSheep";
 	
+	m_log.open("log.txt");
+}
+
+IntelSheep::~IntelSheep(){
+	m_log.close();
 }
 
 void IntelSheep::perceive(World* world) {
@@ -27,6 +33,8 @@ void IntelSheep::progress(double dt, World* world) {
 	perceive(world);
 	
 	// ANA: add AI processing here!
+	// SG: the most intelligent movement ever:
+	m_velocity.randomize();
 	
 	move(dt);
 	
@@ -37,10 +45,12 @@ void IntelSheep::progress(double dt, World* world) {
 		
 		// eat the berries!
 		if ((*it)->getClassID() == "Berry") {
-			m_health += (*it)->giveUpHealth(this);
+			m_health += (*it)->transferHealth(this);
 		}
 		
 	}
+	
+	m_healthOld = m_health;
 	
 }
 
@@ -55,7 +65,29 @@ void IntelSheep::move(double dt) {
 	if(m_health > 1.0) 	
 		m_health -= m_healthConsumption * dt;
 	
-	
-	
-	
 }
+
+void IntelSheep::print(){
+	std::vector<double> position = m_position.getCoordinates();
+	std::cout << "Thing " << m_identifier << " of type " << classID << " at " << position[0] << "," << position[1] << "," << position[2] << " with health " << m_health << std::endl;
+	std::vector<double> velocity = m_velocity.getCoordinates();
+	m_log << velocity[0] << " " << velocity[1] << " " << velocity[2] << " " << m_health - m_healthOld << std::endl;
+	// TODO: output detected object or even better: field of view in pixels when we sense the area
+	
+	//~ m_log << "Things in sight:" << std::endl;
+	//~ m_log << "begin" << std::endl;
+
+	//~ for(std::list<Thing*>::iterator it = thingsInSight.begin(); it != thingsInSight.end(); it++) {
+		//~ m_log << "Thing in sight: " << (*it)->print() << 
+	//~ }
+	
+	//~ m_log << "end" << std::endl;
+	
+	// TODO implement ostream<< operator
+	//~ std::cout << "Thing " << m_identifier << "with mass " << m_mass << " at " << m_position << " with health " << m_health << std::endl;
+}
+
+
+
+
+

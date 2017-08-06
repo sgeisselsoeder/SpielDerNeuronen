@@ -69,7 +69,7 @@ public:
     
     std::string getClassID() const;
     
-    virtual double giveUpHealth(const Thing* healthSucker);	// ANA: another thing can try to drain energy over this interface
+    virtual double transferHealth(const Thing* reciever);	// ANA: another thing can try to drain energy over this interface
 															// ANA: it depends on implementation how much energy can be transferred in each case
 															// ANA: e.g. stones do not let drain any energy and return zero
     

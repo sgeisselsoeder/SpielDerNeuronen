@@ -15,9 +15,7 @@ protected:
 
 	unsigned int m_identifier;	// should one day identify every thing to be able to trace it everywhere
 
-	std::string	classID;
-	// SG: I don't think a thing need to know about its world like that
-	//~ World*		m_world;	
+	std::string	m_classID;
 
 	SpatialVector m_position;
 	SpatialVector m_velocity;	// has to be reduced in every timestep by friction

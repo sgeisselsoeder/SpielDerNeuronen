@@ -1,5 +1,5 @@
-#ifndef GOD_OF_INTEL_SHEEP
-#define GOD_OF_INTEL_SHEEP
+#ifndef UNIVERSE_OF_INTEL_SHEEP
+#define UNIVERSE_OF_INTEL_SHEEP
 
 #include <iostream>
 

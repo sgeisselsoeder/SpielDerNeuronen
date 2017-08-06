@@ -85,7 +85,7 @@ unsigned int SpatialVector::getNumDimensions() const{
 }
 
 
-double SpatialVector::length() {
+double SpatialVector::length() const {
 	
     double sum = 0.0;
     
@@ -98,7 +98,6 @@ double SpatialVector::length() {
 }
 
 void SpatialVector::normalize(double desiredLength) {
-	
 	rescale(desiredLength / length());
 	
 }
@@ -149,3 +148,25 @@ double angle(const SpatialVector& a, const SpatialVector& b) {
     
 }
 
+const SpatialVector operator+(SpatialVector const& lhs, SpatialVector const& rhs)
+{
+  SpatialVector tmp(lhs); //Kopie des linken Operanden
+  tmp += rhs; //Implementierung mittels des +=-Operators
+  return tmp;
+}
+
+const SpatialVector operator-(SpatialVector const& lhs, SpatialVector const& rhs)
+{
+  SpatialVector tmp(lhs); //Kopie des linken Operanden
+  tmp -= rhs; //Implementierung mittels des +=-Operators
+  return tmp;
+}
+
+std::ostream& operator<<(std::ostream& os, const SpatialVector& obj)
+{
+	// write obj to stream
+	for (unsigned i = 0; i < obj.getNumDimensions(); i++) {
+		os << obj.getCoordinates()[i] << " ";
+	}
+	return os;
+}

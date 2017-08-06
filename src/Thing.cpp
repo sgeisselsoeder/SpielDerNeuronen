@@ -53,13 +53,13 @@ double Thing::getMass() const {
 
 void Thing::print(){
 	std::vector<double> position = m_position.getCoordinates();
-	std::cout << "Thing " << m_identifier << " of type " << classID << " at " << position[0] << "," << position[1] << "," << position[2] << " with health " << m_health << std::endl;
+	std::cout << "Thing " << m_identifier << " of type " << m_classID << " at " << position[0] << "," << position[1] << "," << position[2] << " with health " << m_health << std::endl;
 	// TODO implement ostream<< operator
 	//~ std::cout << "Thing " << m_identifier << "with mass " << m_mass << " at " << m_position << " with health " << m_health << std::endl;
 }
 
 std::string Thing::getClassID() const {
-	return classID;
+	return m_classID;
 }
 
 double Thing::transferHealth(const Thing* healthSucker) {

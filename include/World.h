@@ -19,7 +19,7 @@ class World {
  
 public:
     
-    virtual std::list<Thing*> getThings(const SpatialVector&, double, const SpatialVector&, double) = 0;       	// returns a list within a sector
+    virtual std::list<Thing*> getThings(const SpatialVector&, double, const SpatialVector&, double, std::string = "") = 0;       	// returns a list within a sector
     
 																													// Note: functions like look()
 																													// shall provide further 

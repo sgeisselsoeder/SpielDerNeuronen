@@ -2,7 +2,7 @@
 #include "WorldSimple.h"
 
 //returns all the objects within a sector
-std::list<Thing*> WorldSimple::getThings(const SpatialVector& position, double radius, const SpatialVector& direction, double observationAngle) {
+std::list<Thing*> WorldSimple::getThings(const SpatialVector& position, double radius, const SpatialVector& direction, double observationAngle, std::string thingType) {
     
     std::list<Thing*> ret;
     
@@ -19,30 +19,13 @@ std::list<Thing*> WorldSimple::getThings(const SpatialVector& position, double r
 			otherDirection -= position;
 			
 			if (angle(direction, otherDirection) < observationAngle) {
-				ret.push_back(*it);
+				if (thingType != ""){
+					if ((*it)->getClassID() == thingType ) {
+						ret.push_back(*it);
+					}
+				}
 			}	
-			
-			
 		}
-        
-    }
-    
-    return ret;
-    
-}
-
-std::list<Thing*> WorldSimple::getThings(std::string thingType) {
-    
-    std::list<Thing*> ret;
-    
-    // iterate over all the objects
-    for (std::list<Thing*>::const_iterator it = m_things.begin(); it != m_things.end(); ++it) {
-        
-        // process those within the radius
-        if ((*it)->getClassID() == thingType ) {
-			ret.push_back(*it);
-		}
-        
     }
     
     return ret;

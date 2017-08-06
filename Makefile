@@ -3,10 +3,10 @@ INCLUDEDIRS = -I ./include
 CXXFLAGS = -g $(INCLUDEDIRS)
 
 
-all: GodOfIntelSheep
+all: UniverseOfIntelSheep
 
-GodOfIntelSheep: ${OBJECTS}
-	g++ $(CXXFLAGS) -o bin/GodOfIntelSheep src/GodOfIntelSheep.cpp $(OBJECTS)
+UniverseOfIntelSheep: ${OBJECTS}
+	g++ $(CXXFLAGS) -o bin/UniverseOfIntelSheep src/UniverseOfIntelSheep.cpp $(OBJECTS)
 
 bin/WorldSimple.o: src/Thing.cpp src/WorldSimple.cpp
 	g++ $(CXXFLAGS) -c -o bin/WorldSimple.o src/WorldSimple.cpp
@@ -24,4 +24,4 @@ bin/Berry.o: src/Berry.cpp src/Thing.cpp
 	g++ $(CXXFLAGS) -c -o bin/Berry.o src/Berry.cpp
 
 clean:
-	rm bin/*.o bin/GodOfIntelSheep
+	rm -f bin/*.o bin/UniverseOfIntelSheep

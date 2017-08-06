@@ -1,5 +1,5 @@
 *.o
 bin/*.o
 bin/spielDerNeuronen
-bin/GodOfIntelSheep
+bin/UniverseOfIntelSheep
 log.txt

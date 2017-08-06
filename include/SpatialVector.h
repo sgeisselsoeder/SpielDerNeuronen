@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <cmath>
+#include <ostream>
 
 class SpatialVector {
  
@@ -24,13 +25,10 @@ public:
     void turn2D (double angle); //ANA: I want to have turn; AIs shall steer the direction by turning the vector
 					// SG: They should, but not by angle. Lets try to use evctor geometry whereever possible (also scale to 3D and 4D etc.)
     
-    double length();
+    double length() const;
     
-    void normalize(double desiredLength);
-    
+    void normalize(double desiredLength = 1.0);
     void rescale (double coef);
-    
-    void normalize();
     
     SpatialVector& operator+=(const SpatialVector& rhs);
     SpatialVector& operator-=(const SpatialVector& rhs);
@@ -49,6 +47,9 @@ public:
 
 };
 
+std::ostream& operator<<(std::ostream& os, const SpatialVector& obj);
+const SpatialVector operator+(SpatialVector const& lhs, SpatialVector const& rhs);
+const SpatialVector operator-(SpatialVector const& lhs, SpatialVector const& rhs);
 double distance(const SpatialVector& a, const SpatialVector& b);
 double angle(const SpatialVector& a, const SpatialVector& b);
 

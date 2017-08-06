@@ -12,9 +12,7 @@ private:
     double m_time;
     
 public:
-    std::list<Thing*> getThings(const SpatialVector& position, double radius, const SpatialVector& direction, double observationAngle);
-    
-    std::list<Thing*> getThings(std::string thingType);
+    std::list<Thing*> getThings(const SpatialVector& position, double radius, const SpatialVector& direction, double observationAngle, std::string thingType = "");
     
     void progress(double t);
     

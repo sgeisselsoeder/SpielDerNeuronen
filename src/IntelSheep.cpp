@@ -23,7 +23,7 @@ IntelSheep::~IntelSheep(){
 }
 
 void IntelSheep::perceive(World* world) {
-	//~ std::list<Thing*> m_thingsInSight
+	//~ std::list<ThingPtr> m_thingsInSight
 	m_thingsInSight = world->getThings(m_position, m_perceptionRange, m_velocity, M_PI_4);
 	
 	// NOTE: maybe put filtering for closest object into getThings, add argument unsigned int numClosestObjects, 0 means all
@@ -31,13 +31,13 @@ void IntelSheep::perceive(World* world) {
 	const unsigned int maxNumObjects = 10;
 	if (m_thingsInSight.size() > maxNumObjects){
 		std::vector<double> distances(maxNumObjects, 0.0);
-		for(std::list<Thing*>::const_iterator it = m_thingsInSight.begin(); it != m_thingsInSight.end(); ++it) {
+		for(std::list<ThingPtr>::const_iterator it = m_thingsInSight.begin(); it != m_thingsInSight.end(); ++it) {
 			distances.push_back(((*it)->getPosition() - m_position).length());
 		}
 		std::sort(distances.begin(), distances.end());
 		double threshold = distances[maxNumObjects];
 		
-		for(std::list<Thing*>::iterator it = m_thingsInSight.begin(); it != m_thingsInSight.end(); ) {
+		for(std::list<ThingPtr>::iterator it = m_thingsInSight.begin(); it != m_thingsInSight.end(); ) {
 			
 			double distance = ((*it)->getPosition() - m_position).length();
 			if (distance > threshold) {
@@ -68,7 +68,7 @@ unsigned int convertClassIdToInt(const std::string classID){
 
 void IntelSheep::logPerception(){
 	const unsigned int minNumberObjects = 10;
-	for(std::list<Thing*>::iterator it = m_thingsInSight.begin(); it != m_thingsInSight.end(); ++it) {
+	for(std::list<ThingPtr>::iterator it = m_thingsInSight.begin(); it != m_thingsInSight.end(); ++it) {
 		m_log << convertClassIdToInt( (*it)->getClassID() ) << " " << (*it)->getPosition() << " ";
 	}
 }
@@ -87,8 +87,8 @@ void IntelSheep::progress(double dt, World* world) {
 	m_velocity.randomize();
 	move(dt);
 	
-	std::list<Thing*> thingsInFront = world->getThings(m_position, m_eatingRange, m_velocity, M_PI_4);
-	for(std::list<Thing*>::iterator it = thingsInFront.begin(); it != thingsInFront.end(); ++it) {
+	std::list<ThingPtr> thingsInFront = world->getThings(m_position, m_eatingRange, m_velocity, M_PI_4);
+	for(std::list<ThingPtr>::iterator it = thingsInFront.begin(); it != thingsInFront.end(); ++it) {
 		// eat the berries!
 		if ((*it)->getClassID() == "Berry") {
 			m_health += (*it)->transferHealth(this);
@@ -127,7 +127,7 @@ void IntelSheep::print(){
 	//~ m_log << "Things in sight:" << std::endl;
 	//~ m_log << "begin" << std::endl;
 
-	//~ for(std::list<Thing*>::iterator it = thingsInSight.begin(); it != thingsInSight.end(); it++) {
+	//~ for(std::list<ThingPtr>::iterator it = thingsInSight.begin(); it != thingsInSight.end(); it++) {
 		//~ m_log << "Thing in sight: " << (*it)->print() << 
 	//~ }
 	

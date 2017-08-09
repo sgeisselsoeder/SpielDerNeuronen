@@ -6,6 +6,7 @@
 #include "SpatialVector.h"
 #include <string>
 #include "World.h"
+#include <memory>
 
 class World;
 
@@ -72,6 +73,5 @@ public:
 															// ANA: e.g. stones do not let drain any energy and return zero
     
 };
-
 
 #endif

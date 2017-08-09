@@ -8,18 +8,18 @@
 
 #include <vector>
 #include <list>
-//~ #include "SpatialVector.h"
 #include "Thing.h"
-// #include "AllThings.h"    |  ANA: moved to SpielDerNeuronen; the structure is hell :(
-
+#include <memory>
 
 class Thing;
+
+typedef std::shared_ptr<Thing> ThingPtr;
 
 class World {
  
 public:
     
-    virtual std::list<Thing*> getThings(const SpatialVector&, double, const SpatialVector&, double, std::string = "") = 0;       	// returns a list within a sector
+    virtual std::list<ThingPtr> getThings(const SpatialVector&, double, const SpatialVector&, double, std::string = "") = 0;       	// returns a list within a sector
     
 																													// Note: functions like look()
 																													// shall provide further 
@@ -32,7 +32,7 @@ public:
                                                                             // checks if the thing moves
                                                                             // to another quadrant etc
                                                                             
-    virtual void addToWorld(Thing*) = 0;
+    virtual void addToWorld(ThingPtr) = 0;
     
     virtual void printThings() = 0;
     

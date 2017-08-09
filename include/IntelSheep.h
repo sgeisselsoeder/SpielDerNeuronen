@@ -20,7 +20,7 @@ class IntelSheep : public Thing {
 	double m_healthOld;				// health at previous timestep
 	std::ofstream m_log;
 	
-	std::list<Thing*> m_thingsInSight;
+	std::list<ThingPtr> m_thingsInSight;
 	
 	void perceive(World* world);
 	void logPerception();

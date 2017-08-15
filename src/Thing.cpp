@@ -17,11 +17,11 @@ Thing::Thing(SpatialVector position, SpatialVector velocity, double mass, double
 
 // ANA: a plain thing is just an inertial body
 void Thing::progress(double dt, World* world) {
-	move(dt);
+	move(dt, world);
 }
 
 
-void Thing::move(double dt) {
+void Thing::move(double dt, World* world) {
 	
 	SpatialVector positionUpdate = m_velocity;
 	SpatialVector velocityUpdate = m_velocity;
@@ -31,19 +31,30 @@ void Thing::move(double dt) {
 	
 	m_position += positionUpdate;
 	m_velocity -= velocityUpdate;  //de-acceleration by friction
+	
+	//ANA: plain things cannot go through things
+	//ANA: if a certain thing shall can, override this function
+	std::list<ThingPtr> lst = world->getThings(m_position, 5.0, m_velocity, 10.0);
+	
+	if (!lst.empty()) {
+		m_position -= positionUpdate;
+	}
 	 
 }
 
 Thing::Thing(const SpatialVector& pos, const SpatialVector& vel) : m_position(pos), m_velocity(vel) {
-//~ Thing::Thing(const SpatialVector& pos, const SpatialVector& vel, World* world) : m_position(pos), m_velocity(vel), m_world(world) {
+
+	Thing();
 	
 }
 
-Thing::Thing(){
+Thing::Thing() {
+	
+	m_collisionRadius = 5.0;
 	
 }
 
-Thing::~Thing(){
+Thing::~Thing() {
 	
 }
 

@@ -6,5 +6,6 @@
 #include "WorldSimple.h"
 #include "IntelSheep.h"
 #include "Berry.h"
+#include "Stone.h"
 
 #endif

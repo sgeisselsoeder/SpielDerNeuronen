@@ -28,13 +28,14 @@ protected:
 	
 	double m_health; // should be reduced in every timestep by a small amount
 	double m_maxHealth; // maybe Things should split into children beyond a certain energy
+	double m_collisionRadius;
 	
 	double m_maxSpeed;
 	// double strength; // could also be a function s(health), with different objects having different maxHealth
 	std::list<Thing> m_baggage;
 	bool m_isFree;
 
-	virtual void move(double dt);
+	virtual void move(double dt, World* world);
 
 	//~ virtual void look();
 	//~ std::list<Thing> sense(const World* map);

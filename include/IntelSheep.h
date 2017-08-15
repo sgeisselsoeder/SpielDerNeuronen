@@ -24,7 +24,7 @@ class IntelSheep : public Thing {
 	
 	void perceive(World* world);
 	void logPerception();
-	void move(double dt);
+	void move(double dt, World* world);
 	
 public:
 

@@ -5,6 +5,9 @@
 
 class Stone : public Thing {
 	
+public:
+	Stone(const SpatialVector& pos, const SpatialVector& vel);
+	
 };
 
 #endif

@@ -1,6 +1,6 @@
-OBJECTS = bin/WorldSimple.o bin/SpatialVector.o bin/Thing.o bin/IntelSheep.o bin/Berry.o
+OBJECTS = bin/WorldSimple.o bin/SpatialVector.o bin/Thing.o bin/IntelSheep.o bin/Berry.o bin/Stone.o
 INCLUDEDIRS = -I ./include
-CXXFLAGS = -g $(INCLUDEDIRS)
+CXXFLAGS = -g $(INCLUDEDIRS) -std=c++0x
 
 
 all: UniverseOfIntelSheep
@@ -22,6 +22,9 @@ bin/Thing.o: src/Thing.cpp
 	
 bin/Berry.o: src/Berry.cpp src/Thing.cpp
 	g++ $(CXXFLAGS) -c -o bin/Berry.o src/Berry.cpp
+	
+bin/Stone.o: src/Stone.cpp src/Thing.cpp
+	g++ $(CXXFLAGS) -c -o bin/Stone.o src/Stone.cpp
 
 clean:
 	rm -f bin/*.o bin/UniverseOfIntelSheep

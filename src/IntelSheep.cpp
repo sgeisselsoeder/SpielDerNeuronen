@@ -27,18 +27,22 @@ void IntelSheep::perceive(World* world) {
 	m_thingsInSight = world->getThings(m_position, m_perceptionRange, m_velocity, M_PI_4);
 	
 	// NOTE: maybe put filtering for closest object into getThings, add argument unsigned int numClosestObjects, 0 means all
-	// NOTE: the intelSheep is confused by more than 10 objects
+	
+	
+	// NOTE: For now, the intelSheep is confused by more than 10 objects
 	const unsigned int maxNumObjects = 10;
 	if (m_thingsInSight.size() > maxNumObjects){
+		// Sort all percieved things according to their distance
 		std::vector<double> distances(maxNumObjects, 0.0);
 		for(std::list<ThingPtr>::const_iterator it = m_thingsInSight.begin(); it != m_thingsInSight.end(); ++it) {
 			distances.push_back(((*it)->getPosition() - m_position).length());
 		}
 		std::sort(distances.begin(), distances.end());
+		// Remember the distanance of the farest object we can handle
 		double threshold = distances[maxNumObjects];
 		
+		// Remove all perceived objects that are further away
 		for(std::list<ThingPtr>::iterator it = m_thingsInSight.begin(); it != m_thingsInSight.end(); ) {
-			
 			double distance = ((*it)->getPosition() - m_position).length();
 			if (distance > threshold) {
 				m_thingsInSight.erase(it);
@@ -50,34 +54,43 @@ void IntelSheep::perceive(World* world) {
 	
 }
 
+// TODO: change lasss id from string to int and this function from StringToInt to IntToString
 unsigned int convertClassIdToInt(const std::string classID){
-	//~ switch (classID) {
-		//~ case std::string("Berry"):
+	switch (classID) {
+		case std::string("Berry"):
 			return 1;
 			
-		//~ case std::string("Wolf"):
-			//~ return 2;
+		case std::string("Wolf"):
+			return 2;
 
-		//~ case std::string("Stone"):
-			//~ return 3;
+		case std::string("Stone"):
+			return 3;
 			
-		//~ case default:
-			//~ return 0;	
-	//~ }
+		case default:
+			return 0;	
+	}
 }
 
+// Always write the maximal number of percieved objects
 void IntelSheep::logPerception(){
 	const unsigned int minNumberObjects = 10;
 	for(std::list<ThingPtr>::iterator it = m_thingsInSight.begin(); it != m_thingsInSight.end(); ++it) {
 		m_log << convertClassIdToInt( (*it)->getClassID() ) << " " << (*it)->getPosition() << " ";
 	}
+	for(unsigned int i = 0; i < (minNumberObjects-m_thingsInSight.size()); ++i ) {
+		m_log << 0 << " " << 0.0 << " " << 0.0 << " " << 0.0 << " ";
+	}
 }
 
 void IntelSheep::progress(double dt, World* world) {
 	
-	perceive(world);
+	// log the status
+	m_log << m_health << " " << position[0] << " " << position[1] << " " << position[2] << " ";
+	//velocity[0] << " " << velocity[1] << " " << velocity[2] << " ";
 	
-	// TODO: log all perceptions
+	perceive(world);
+	// log the percieved objects
+	logPerception();
 	
 	// ANA: AI processing here!
 	
@@ -86,6 +99,9 @@ void IntelSheep::progress(double dt, World* world) {
 	
 	move(dt, world);
 	
+	// TODO: change this:
+	// current: percieved again to eat
+	// target: only check already percieved objects for deliciousness
 	std::list<ThingPtr> thingsInFront = world->getThings(m_position, m_eatingRange, m_velocity, M_PI_4);
 	for(std::list<ThingPtr>::iterator it = thingsInFront.begin(); it != thingsInFront.end(); ++it) {
 		// eat the berries!
@@ -118,7 +134,6 @@ void IntelSheep::print(){
 	std::vector<double> position = m_position.getCoordinates();
 	std::cout << "Thing " << m_identifier << " of type " << m_classID << " at " << position[0] << "," << position[1] << "," << position[2] << " with health " << m_health << std::endl;
 	std::vector<double> velocity = m_velocity.getCoordinates();
-	m_log << velocity[0] << " " << velocity[1] << " " << velocity[2] << " " << m_health - m_healthOld << std::endl;
 	// TODO: output detected object or even better: field of view in pixels when we sense the area
 	
 	//~ m_log << "Things in sight:" << std::endl;

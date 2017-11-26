@@ -14,6 +14,8 @@ class Thing
 {	
 protected:
 
+// TODO: add unique identifier (just count the number of objects, to be able to refer to an object)
+
 	unsigned int m_identifier;	// should one day identify every thing to be able to trace it everywhere
 
 	std::string	m_classID;

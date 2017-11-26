@@ -37,7 +37,7 @@ void WorldSimple::progress(double dt){
 	
 	for (std::list<ThingPtr>::iterator it = m_things.begin(); it != m_things.end();) {
 		
-		if ((*it)->getHealth() < 0.1) {
+		if ((*it)->getHealth() < 0.0) {
 			
 			// delete (*it);
 			it = m_things.erase(it);

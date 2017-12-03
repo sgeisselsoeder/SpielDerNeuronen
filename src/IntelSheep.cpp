@@ -24,6 +24,7 @@ IntelSheep::~IntelSheep(){
 
 void IntelSheep::perceive(World* world) {
 	//~ std::list<ThingPtr> m_thingsInSight
+	
 	m_thingsInSight = world->getThings(m_position, m_perceptionRange, m_velocity, M_PI_4);
 	
 	// NOTE: maybe put filtering for closest object into getThings, add argument unsigned int numClosestObjects, 0 means all
@@ -58,19 +59,21 @@ void IntelSheep::perceive(World* world) {
 
 // Always write the maximal number of percieved objects
 void IntelSheep::logPerception(){
+	m_log << "Perception: " << std::endl; 
 	const unsigned int minNumberObjects = 10;
 	for(std::list<ThingPtr>::iterator it = m_thingsInSight.begin(); it != m_thingsInSight.end(); ++it) {
-		m_log << (*it)->getClassID() << " " << (*it)->getPosition() << " ";
+		m_log << (*it)->getClassID() << " " << ((*it)->getPosition() - m_position) << std::endl;
 	}
 	for(unsigned int i = 0; i < (minNumberObjects-m_thingsInSight.size()); ++i ) {
-		m_log << 0 << " " << 0.0 << " " << 0.0 << " " << 0.0 << " ";
+		m_log << 0 << " " << 0.0 << " " << 0.0 << " " << 0.0 << std::endl;
 	}
 }
 
 void IntelSheep::progress(double dt, World* world) {
 	
 	// log the status
-	m_log << m_health << " " << m_position;
+	m_log << "Object: " << std::endl;
+	m_log << m_classID << " " << m_health << " " << m_position << std::endl;
 	//velocity[0] << " " << velocity[1] << " " << velocity[2] << " ";
 	
 	perceive(world);

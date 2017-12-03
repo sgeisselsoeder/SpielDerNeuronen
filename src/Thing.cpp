@@ -33,7 +33,7 @@ void Thing::move(double dt, World* world) {
 	m_velocity -= velocityUpdate;  //de-acceleration by friction
 	
 	//ANA: plain things cannot go through things
-	//ANA: if a certain thing shall can, override this function
+	//ANA: if a certain thing shall be able to, override this function
 	std::list<ThingPtr> lst = world->getThings(m_position, 5.0, m_velocity, 10.0);
 	
 	if (!lst.empty()) {
@@ -62,14 +62,14 @@ double Thing::getMass() const {
 	return m_mass;
 }
 
-void Thing::print(){
+void Thing::print() {
 	std::vector<double> position = m_position.getCoordinates();
-	std::cout << "Thing " << m_identifier << " of type " << m_classID << " at " << position[0] << "," << position[1] << "," << position[2] << " with health " << m_health << std::endl;
+	std::cout << "Thing " << m_identifier << " of type " << convertClassIdToString(m_classID) << " at " << position[0] << "," << position[1] << "," << position[2] << " with health " << m_health << std::endl;
 	// TODO implement ostream<< operator
 	//~ std::cout << "Thing " << m_identifier << "with mass " << m_mass << " at " << m_position << " with health " << m_health << std::endl;
 }
 
-std::string Thing::getClassID() const {
+unsigned int Thing::getClassID() const {
 	return m_classID;
 }
 
@@ -83,4 +83,27 @@ double Thing::getHealth() const {
 	
 	return m_health;
 	
+}
+
+// converts integer ID into a string description
+std::string convertClassIdToString(const unsigned int classID) {
+	switch (classID) {
+		case 1:
+			return std::string("Berry");
+			
+		case 2:
+			return std::string("Wolf");
+
+		case 3:
+			return std::string("Stone");
+			
+		case 4:
+			return std::string("Sheep");
+			
+		case 5:
+			return std::string("IntelSheep");
+			
+		default:
+			return std::string("");	
+	}
 }

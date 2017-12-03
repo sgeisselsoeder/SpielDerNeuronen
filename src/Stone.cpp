@@ -6,6 +6,6 @@ Stone::Stone(const SpatialVector& pos, const SpatialVector& vel) : Thing(pos, ve
 	m_mass					= 1000.0;
 	m_health				= 10.0;
 	
-	m_classID				= "Stone";
+	m_classID				= 3;
 	
 }

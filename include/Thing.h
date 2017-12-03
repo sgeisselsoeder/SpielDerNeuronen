@@ -18,7 +18,7 @@ protected:
 
 	unsigned int m_identifier;	// should one day identify every thing to be able to trace it everywhere
 
-	std::string	m_classID;
+	unsigned int m_classID;
 
 	SpatialVector m_position;
 	SpatialVector m_velocity;	// has to be reduced in every timestep by friction
@@ -69,12 +69,14 @@ public:
     
     virtual void print();
     
-    std::string getClassID() const;
+    unsigned int getClassID() const;
     
     virtual double transferHealth(const Thing* reciever);	// ANA: another thing can try to drain energy over this interface
 															// ANA: it depends on implementation how much energy can be transferred in each case
 															// ANA: e.g. stones do not let drain any energy and return zero
     
 };
+
+std::string convertClassIdToString(const unsigned int);
 
 #endif

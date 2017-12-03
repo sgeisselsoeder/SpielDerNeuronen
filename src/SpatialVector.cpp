@@ -158,7 +158,7 @@ const SpatialVector operator+(SpatialVector const& lhs, SpatialVector const& rhs
 const SpatialVector operator-(SpatialVector const& lhs, SpatialVector const& rhs)
 {
   SpatialVector tmp(lhs); //Kopie des linken Operanden
-  tmp -= rhs; //Implementierung mittels des +=-Operators
+  tmp -= rhs; //Implementierung mittels des -=-Operators
   return tmp;
 }
 

@@ -13,7 +13,7 @@ IntelSheep::IntelSheep(const SpatialVector& pos, const SpatialVector& vel) : Thi
 	m_health				= 100.0;
 	m_healthOld				= 100.0;
 	
-	m_classID					= "IntelSheep";
+	m_classID				= 5;
 	
 	m_log.open("log.txt");
 }
@@ -38,7 +38,7 @@ void IntelSheep::perceive(World* world) {
 			distances.push_back(((*it)->getPosition() - m_position).length());
 		}
 		std::sort(distances.begin(), distances.end());
-		// Remember the distanance of the farest object we can handle
+		// Remember the distance of the farest object we can handle
 		double threshold = distances[maxNumObjects];
 		
 		// Remove all perceived objects that are further away
@@ -54,28 +54,13 @@ void IntelSheep::perceive(World* world) {
 	
 }
 
-// TODO: change lasss id from string to int and this function from StringToInt to IntToString
-unsigned int convertClassIdToInt(const std::string classID){
-	switch (classID) {
-		case std::string("Berry"):
-			return 1;
-			
-		case std::string("Wolf"):
-			return 2;
 
-		case std::string("Stone"):
-			return 3;
-			
-		case default:
-			return 0;	
-	}
-}
 
 // Always write the maximal number of percieved objects
 void IntelSheep::logPerception(){
 	const unsigned int minNumberObjects = 10;
 	for(std::list<ThingPtr>::iterator it = m_thingsInSight.begin(); it != m_thingsInSight.end(); ++it) {
-		m_log << convertClassIdToInt( (*it)->getClassID() ) << " " << (*it)->getPosition() << " ";
+		m_log << (*it)->getClassID() << " " << (*it)->getPosition() << " ";
 	}
 	for(unsigned int i = 0; i < (minNumberObjects-m_thingsInSight.size()); ++i ) {
 		m_log << 0 << " " << 0.0 << " " << 0.0 << " " << 0.0 << " ";
@@ -85,7 +70,7 @@ void IntelSheep::logPerception(){
 void IntelSheep::progress(double dt, World* world) {
 	
 	// log the status
-	m_log << m_health << " " << position[0] << " " << position[1] << " " << position[2] << " ";
+	m_log << m_health << " " << m_position;
 	//velocity[0] << " " << velocity[1] << " " << velocity[2] << " ";
 	
 	perceive(world);
@@ -104,8 +89,8 @@ void IntelSheep::progress(double dt, World* world) {
 	// target: only check already percieved objects for deliciousness
 	std::list<ThingPtr> thingsInFront = world->getThings(m_position, m_eatingRange, m_velocity, M_PI_4);
 	for(std::list<ThingPtr>::iterator it = thingsInFront.begin(); it != thingsInFront.end(); ++it) {
-		// eat the berries!
-		if ((*it)->getClassID() == "Berry") {
+		// eat the berries (berry class ID = 1)!
+		if ((*it)->getClassID() == 1) {
 			m_health += (*it)->transferHealth(this);
 		}
 	}
@@ -129,27 +114,6 @@ void IntelSheep::move(double dt, World* world) {
 	m_health -= m_healthConsumption * dt;
 	
 }
-
-void IntelSheep::print(){
-	std::vector<double> position = m_position.getCoordinates();
-	std::cout << "Thing " << m_identifier << " of type " << m_classID << " at " << position[0] << "," << position[1] << "," << position[2] << " with health " << m_health << std::endl;
-	std::vector<double> velocity = m_velocity.getCoordinates();
-	// TODO: output detected object or even better: field of view in pixels when we sense the area
-	
-	//~ m_log << "Things in sight:" << std::endl;
-	//~ m_log << "begin" << std::endl;
-
-	//~ for(std::list<ThingPtr>::iterator it = thingsInSight.begin(); it != thingsInSight.end(); it++) {
-		//~ m_log << "Thing in sight: " << (*it)->print() << 
-	//~ }
-	
-	//~ m_log << "end" << std::endl;
-	
-	// TODO implement ostream<< operator
-	//~ std::cout << "Thing " << m_identifier << "with mass " << m_mass << " at " << m_position << " with health " << m_health << std::endl;
-}
-
-
 
 
 

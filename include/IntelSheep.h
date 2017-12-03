@@ -31,7 +31,6 @@ public:
 	IntelSheep(const SpatialVector& pos, const SpatialVector& vel);
 	~IntelSheep();
 	void progress(double dt, World* world);
-	void print();
 	
 	
 };

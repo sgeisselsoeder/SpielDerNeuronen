@@ -2,7 +2,7 @@
 #include "WorldSimple.h"
 
 //returns all the objects within a sector
-std::list<ThingPtr> WorldSimple::getThings(const SpatialVector& position, double radius, const SpatialVector& direction, double observationAngle, std::string thingType) {
+std::list<ThingPtr> WorldSimple::getThings(const SpatialVector& position, double radius, const SpatialVector& direction, double observationAngle, unsigned int thingType) {
     
     std::list<ThingPtr> ret;
     
@@ -20,7 +20,7 @@ std::list<ThingPtr> WorldSimple::getThings(const SpatialVector& position, double
 			
 			if (angle(direction, otherDirection) < observationAngle) {
 				
-				if ((*it)->getClassID() == thingType || thingType == "") {
+				if ((*it)->getClassID() == thingType || thingType == 0) {
 					ret.push_back(*it);
 				}
 				
@@ -37,7 +37,7 @@ void WorldSimple::progress(double dt){
 	
 	for (std::list<ThingPtr>::iterator it = m_things.begin(); it != m_things.end();) {
 		
-		if ((*it)->getHealth() < 0.0) {
+		if ((*it)->getHealth() < 0.1) { // ANA: TODO: elaborate the proper treshold
 			
 			// delete (*it);
 			it = m_things.erase(it);

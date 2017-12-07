@@ -34,7 +34,8 @@ void Thing::move(double dt, World* world) {
 	
 	//ANA: plain things cannot go through things
 	//ANA: if a certain thing shall be able to, override this function
-	std::list<ThingPtr> lst = world->getThings(m_position, 5.0, m_velocity, 10.0);
+	double collisionRadius = 1.0;
+	std::list<ThingPtr> lst = world->getThings(m_position, collisionRadius);
 	
 	if (!lst.empty()) {
 		m_position -= positionUpdate;

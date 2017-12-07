@@ -19,7 +19,7 @@ class World {
  
 public:
     
-    virtual std::list<ThingPtr> getThings(const SpatialVector&, double, const SpatialVector&, double, unsigned int = 0) = 0;       	// returns a list within a sector
+    virtual std::list<ThingPtr> getThings(const SpatialVector&, double, const SpatialVector& direction = SpatialVector(1,1,1), double = 6.284 /*two pi by default*/, unsigned int = 0) = 0;       	// returns a list within a sector
     
 																													// Note: functions like look()
 																													// shall provide further 

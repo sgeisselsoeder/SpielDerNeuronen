@@ -2,6 +2,7 @@
 #include <cmath>
 #include "SpatialVector.h"
 #include <stdlib.h>     /* srand, rand */
+#include <iostream>
 
 
 
@@ -140,12 +141,10 @@ double angle(const SpatialVector& a, const SpatialVector& b) {
         length			+= (a.getCoordinates()[i]) * (a.getCoordinates()[i]);
         scalar_prod		+= (a.getCoordinates()[i]) * (b.getCoordinates()[i]);
     }
-    
     double cos_angle = scalar_prod / sqrt (length) / sqrt(vec_length);
-    
-    return acos(cos_angle);
-    
-    
+    // The min function is there to prevent numerical errors that can occur when the angle is close to zero, hence the cos_angle is approx. 1.
+    // acos is not defined for 1.0+eps
+    return acos(std::min(cos_angle, 1.0));
 }
 
 const SpatialVector operator+(SpatialVector const& lhs, SpatialVector const& rhs)
@@ -160,6 +159,19 @@ const SpatialVector operator-(SpatialVector const& lhs, SpatialVector const& rhs
   SpatialVector tmp(lhs); //Kopie des linken Operanden
   tmp -= rhs; //Implementierung mittels des -=-Operators
   return tmp;
+}
+
+bool operator==(SpatialVector const& a, SpatialVector const& b){
+	for(unsigned int i = 0; i < a.getNumDimensions(); i++) {
+		if (a.getCoordinates()[i] != b.getCoordinates()[i]) {
+			return false;
+		}
+    }
+    return true;
+}
+
+bool operator!=(SpatialVector const& a, SpatialVector const& b) {
+	return !(a==b) ;
 }
 
 std::ostream& operator<<(std::ostream& os, const SpatialVector& obj)

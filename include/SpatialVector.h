@@ -50,6 +50,8 @@ public:
 std::ostream& operator<<(std::ostream& os, const SpatialVector& obj);
 const SpatialVector operator+(SpatialVector const& lhs, SpatialVector const& rhs);
 const SpatialVector operator-(SpatialVector const& lhs, SpatialVector const& rhs);
+bool operator==(SpatialVector const& lhs, SpatialVector const& rhs);
+bool operator!=(SpatialVector const& lhs, SpatialVector const& rhs);
 double distance(const SpatialVector& a, const SpatialVector& b);
 double angle(const SpatialVector& a, const SpatialVector& b);
 

@@ -2,6 +2,6 @@
 bin/*.o
 bin/spielDerNeuronen
 bin/UniverseOfIntelSheep
-log.txt
+log*.txt
 *.log
 *.geany

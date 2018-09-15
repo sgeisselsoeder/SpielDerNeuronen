@@ -7,5 +7,6 @@
 #include "IntelSheep.h"
 #include "Berry.h"
 #include "Stone.h"
+#include "Wolf.h"
 
 #endif

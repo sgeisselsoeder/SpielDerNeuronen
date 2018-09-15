@@ -35,6 +35,7 @@ public:
 	~IntelSheep();
 	void progress(double dt, World* world);
 	
+	double transferHealth(const Thing* healthSucker);
 	
 };
 

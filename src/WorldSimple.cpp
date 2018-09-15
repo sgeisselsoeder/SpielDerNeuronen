@@ -7,7 +7,7 @@ WorldSimple::WorldSimple(const std::string& logfile){
 		m_logfile.open(logfile);
 	} catch (const std::exception& ex) {
 			std::cout << "Failed to open " << logfile << " as logfile for SimpleWorld object logging" << std::endl;
-			throw(ex);
+			// throw(ex);
 	}
 }
     
@@ -20,6 +20,7 @@ std::list<ThingPtr> WorldSimple::getThings(const SpatialVector& position, double
 	
     std::list<ThingPtr> ret;
     if (direction == SpatialVector(0.0, 0.0, 0.0) ) {
+		std::cerr << "I need a direction" << std::endl;
 		throw("I need a direction");
 		return ret;
 	}

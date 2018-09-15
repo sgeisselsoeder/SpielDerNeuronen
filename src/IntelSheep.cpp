@@ -94,7 +94,14 @@ void IntelSheep::comeUpWithPlan() {
 	// but also: check all percieved objects
 	double distanceToClosestBerrySoFar = std::numeric_limits<double>::max();
 	for(std::list<ThingPtr>::iterator it = m_thingsInSight.begin(); it != m_thingsInSight.end(); ++it) {
-		// only act on berries
+		// act on wolfs - PANIC!
+		if ((*it)->getClassID() == 2) {
+			// let's get away from this big bad wolf!
+			m_velocity = m_position-(*it)->getPosition();
+			return;	// we don't care for anything else, we are in panic mode!
+		}
+		
+		// act on berries
 		if ((*it)->getClassID() == 1) {
 			// how far is it to this berry
 			double distanceToThisBerry = distance(m_position, (*it)->getPosition());
@@ -159,6 +166,12 @@ void IntelSheep::move(double dt, World* world) {
 
 	m_health -= m_healthConsumption * dt;
 	
+}
+
+double IntelSheep::transferHealth(const Thing* healthSucker) {
+	double health = m_health;
+	m_health = -1.0;
+	return health;
 }
 
 

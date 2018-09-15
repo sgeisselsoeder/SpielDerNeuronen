@@ -2,7 +2,6 @@
 // overload the virtual functions with specific implementations
 
 
-
 #ifndef WORLD_H
 #define WORLD_H
 
@@ -10,6 +9,8 @@
 #include <list>
 #include "Thing.h"
 #include <memory>
+#include <iostream>
+#include <fstream>
 
 class Thing;
 
@@ -34,7 +35,8 @@ public:
                                                                             
     virtual void addToWorld(ThingPtr) = 0;
     
-    virtual void printThings() = 0;
+    
+    virtual void printThings(std::ostream& outstream = std::cout) = 0;
     
 };
 

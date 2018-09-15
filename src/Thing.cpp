@@ -30,7 +30,7 @@ void Thing::move(double dt, World* world) {
 	velocityUpdate.rescale(dt*m_friction/m_mass);
 	
 	m_position += positionUpdate;
-	m_velocity -= velocityUpdate;  //de-acceleration by friction
+	m_velocity -= velocityUpdate;  // de-acceleration by friction
 	
 	//ANA: plain things cannot go through things
 	//ANA: if a certain thing shall be able to, override this function
@@ -38,7 +38,12 @@ void Thing::move(double dt, World* world) {
 	std::list<ThingPtr> lst = world->getThings(m_position, collisionRadius);
 	
 	if (!lst.empty()) {
+		positionUpdate.normalize(1.5);
 		m_position -= positionUpdate;
+		SpatialVector randomVector;
+		randomVector.randomize();
+		randomVector.normalize(0.5*collisionRadius);
+		m_position += randomVector;
 	}
 	 
 }
@@ -63,9 +68,9 @@ double Thing::getMass() const {
 	return m_mass;
 }
 
-void Thing::print() {
+void Thing::print(std::ostream& outstream) {
 	std::vector<double> position = m_position.getCoordinates();
-	std::cout << "Thing " << m_identifier << " of type " << convertClassIdToString(m_classID) << " at " << position[0] << "," << position[1] << "," << position[2] << " with health " << m_health << std::endl;
+	outstream << "Thing " << m_identifier << " of type " << convertClassIdToString(m_classID) << " at " << position[0] << "," << position[1] << "," << position[2] << " with health " << m_health << std::endl;
 	// TODO implement ostream<< operator
 	//~ std::cout << "Thing " << m_identifier << "with mass " << m_mass << " at " << m_position << " with health " << m_health << std::endl;
 }

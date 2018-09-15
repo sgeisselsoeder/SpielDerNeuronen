@@ -2,6 +2,19 @@
 #include "WorldSimple.h"
 #include <iostream>
 
+WorldSimple::WorldSimple(const std::string& logfile){
+	try {
+		m_logfile.open(logfile);
+	} catch (const std::exception& ex) {
+			std::cout << "Failed to open " << logfile << " as logfile for SimpleWorld object logging" << std::endl;
+			throw(ex);
+	}
+}
+    
+WorldSimple::~WorldSimple(){
+	m_logfile.close();
+}
+
 //returns all the objects within a sector
 std::list<ThingPtr> WorldSimple::getThings(const SpatialVector& position, double radius, const SpatialVector& direction, double observationAngle, unsigned int thingType) {
 	
@@ -64,6 +77,7 @@ void WorldSimple::progress(double dt){
 	
 	m_time += dt;
 	
+	printThings(m_logfile);
 }
 
 void WorldSimple::addToWorld(ThingPtr t)
@@ -71,10 +85,11 @@ void WorldSimple::addToWorld(ThingPtr t)
 	m_things.push_back(t);
 }
 
-void WorldSimple::printThings(){
+void WorldSimple::printThings(std::ostream& outstream){
 	for (std::list<ThingPtr>::iterator it = m_things.begin(); it != m_things.end(); ++it){
-		(*it)->print();
+		(*it)->print(outstream);
 	}
 }
+
 
 

@@ -7,6 +7,7 @@
 #include <string>
 #include "World.h"
 #include <memory>
+#include <iostream>
 
 class World;
 
@@ -67,7 +68,7 @@ public:
     
     virtual void progress(double dt, World* world);
     
-    virtual void print();
+    virtual void print(std::ostream& outstream = std::cout);
     
     unsigned int getClassID() const;
     

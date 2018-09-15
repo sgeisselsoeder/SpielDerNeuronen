@@ -8,7 +8,7 @@ IntelSheep::IntelSheep(const SpatialVector& pos, const SpatialVector& vel) : Thi
 	m_speed					= 1.0;
 	m_friction				= 0.0;
 	m_mass					= 100.0;
-	m_eatingRange			= 1.5;
+	m_eatingRange			= 2.0;	// any interaction range must be at least twice the collision radius (1.0 at this moment)
 	m_perceptionRange		= 50.0;
 	m_perceptionAngle		= 2.0*M_PI;
 	m_healthConsumption		= 0.1;
@@ -62,13 +62,13 @@ void IntelSheep::logPerception(){
 	//m_log << "Perception: " << std::endl;
 	// Percieve as many objects as are around
 	for(std::list<ThingPtr>::iterator it = m_thingsInSight.begin(); it != m_thingsInSight.end(); ++it) {
-		//m_log << (*it)->getClassID() << " " << ((*it)->getPosition() - m_position) << std::endl;
+		//std::cout << (*it)->getClassID() << " " << ((*it)->getPosition() - m_position) << std::endl;
 		m_log << (*it)->getClassID() << " " << ((*it)->getPosition() - m_position) << " ";
 	}
 	const unsigned int minNumberObjects = 10;
 	// Always write AT LEAST the required number of objects
 	for(unsigned int i = 0; i < (minNumberObjects-m_thingsInSight.size()); ++i ) {
-		//m_log << 0 << " " << 0.0 << " " << 0.0 << " " << 0.0 << std::endl;
+		//std::cout << 0 << " " << 0.0 << " " << 0.0 << " " << 0.0 << std::endl;
 		m_log << 0 << " " << 0.0 << " " << 0.0 << " " << 0.0 << " ";
 	}
 	m_log << std::endl;
@@ -89,6 +89,7 @@ void IntelSheep::comeUpWithPlan() {
 	
 	// SG: by default: the most intelligent movement ever:
 	m_velocity.randomize();
+	SpatialVector randomDirection = m_velocity;
 	
 	// but also: check all percieved objects
 	double distanceToClosestBerrySoFar = std::numeric_limits<double>::max();
@@ -103,6 +104,9 @@ void IntelSheep::comeUpWithPlan() {
 				// we want to go to this berry! It's delicious
 				distanceToClosestBerrySoFar = distanceToThisBerry;
 				m_velocity = (*it)->getPosition()-m_position;
+				// but also add some randomness
+				randomDirection.normalize(0.2 * m_velocity.length());
+				//m_velocity += randomDirection;
 				//std::cout << " moving from " << m_position << " to " << (*it)->getPosition() << " in direction " << m_velocity << std::endl;
 			}
 		}

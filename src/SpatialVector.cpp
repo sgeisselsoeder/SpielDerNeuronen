@@ -112,12 +112,11 @@ void SpatialVector::rescale (double coef) {
 }
 
 void SpatialVector::randomize () {
-	
 	for(unsigned i = 0; i < m_numDimensions; i++) {
-		m_coordinates[i] = rand();
+		m_coordinates[i] = rand()-0.5*RAND_MAX;
 	}
-	
 }
+
 
 double distance(const SpatialVector& a, const SpatialVector& b) {
     double sum = 0.0;

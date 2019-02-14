@@ -57,7 +57,7 @@ public:
 	Thing();
 	//~ Thing(const SpatialVector& pos, const SpatialVector& vel, World* world);
 	Thing(const SpatialVector& pos, const SpatialVector& vel);
-	~Thing();
+	virtual ~Thing();
 	
     double getMass() const;
 	//~ double getEnergy();
@@ -77,6 +77,8 @@ public:
 															// ANA: e.g. stones do not let drain any energy and return zero
     
 };
+
+typedef std::shared_ptr<Thing> ThingPtr;
 
 std::string convertClassIdToString(const unsigned int);
 

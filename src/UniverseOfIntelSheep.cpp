@@ -12,7 +12,7 @@ int main() {
 	ws.addToWorld(std::make_shared<Wolf>(SpatialVector(-69.0, 0.0, 79.0), SpatialVector(0.1)));
 	ws.addToWorld(std::make_shared<Stone>(SpatialVector(22.0, 22.0), SpatialVector(0.0)));
 	
-	unsigned int numTimesteps = 200;
+	unsigned int numTimesteps = 1;
 	try {
 		for (unsigned int i = 0; i < numTimesteps; ++i){
 			std::cout << "Timestep " << i << "/" << numTimesteps << std::endl;
@@ -23,8 +23,6 @@ int main() {
 			std::cout << "Failed with " << ex.what() << std::endl;
 			throw(ex);
 	}	
-	
-	
 	
 }
 

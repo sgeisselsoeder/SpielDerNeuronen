@@ -9,6 +9,7 @@ WorldSimple::WorldSimple(const std::string& logfile){
 			std::cout << "Failed to open " << logfile << " as logfile for SimpleWorld object logging" << std::endl;
 			// throw(ex);
 	}
+	m_time = 0.0;
 }
     
 WorldSimple::~WorldSimple(){

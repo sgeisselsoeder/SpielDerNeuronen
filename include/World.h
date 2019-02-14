@@ -14,8 +14,6 @@
 
 class Thing;
 
-typedef std::shared_ptr<Thing> ThingPtr;
-
 class World {
  
 public:
@@ -33,11 +31,13 @@ public:
                                                                             // checks if the thing moves
                                                                             // to another quadrant etc
                                                                             
-    virtual void addToWorld(ThingPtr) = 0;
+    virtual void addToWorld(ThingPtr t) = 0;
     
     
     virtual void printThings(std::ostream& outstream = std::cout) = 0;
     
+    virtual ~World();
+
 };
 
 #endif

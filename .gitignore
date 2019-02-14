@@ -5,3 +5,6 @@ bin/UniverseOfIntelSheep
 log*.txt
 *.log
 *.geany
+.project
+.cproject
+.settings
